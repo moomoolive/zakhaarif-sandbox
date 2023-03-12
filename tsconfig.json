@@ -1,0 +1,17 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "target": "ES2020",
+        "module": "ESNext",
+        "moduleResolution": "node",
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "checkJs": true
+    },
+    "exclude": [
+        "**/*.compiled.*", 
+        "**/*.inlined.*", 
+        "node_modules",
+        "src/serviceWorker"
+    ]
+}

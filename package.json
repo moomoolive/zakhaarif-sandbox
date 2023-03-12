@@ -1,0 +1,32 @@
+{
+  "name": "zakhaarif-sandbox",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "sw": "node ./dev/generateHtml.mjs && esbuild ./src/secure.ts --bundle --sourcemap --minify --format=esm --outfile=./src/src/secure.compiled.js && node ./dev/inlineCoreFiles.mjs && esbuild ./src/serviceWorker/index.ts --bundle --minify --sourcemap --outfile=./src/src/mirror-sw.compiled.js",
+    "test": "vitest run",
+    "test-watch": "vitest watch",
+    "dev": "npm run sw && node ./dev/devServer.mjs",
+    "build": "npm run sw && node ./dev/copyFolder.mjs --source=src/src --dest=dist && node ./dev/headers.mjs",
+    "type-check": "tsc --project tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "w-worker-rpc": "^0.1.3"
+  },
+  "devDependencies": {
+    "@types/command-line-args": "^5.2.0",
+    "@types/cors": "^2.8.13",
+    "@types/express": "^4.17.17",
+    "@types/fs-extra": "^11.0.1",
+    "@types/node": "^18.15.0",
+    "command-line-args": "^5.2.1",
+    "cors": "^2.8.5",
+    "esbuild": "^0.17.11",
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.0",
+    "huzma": "^0.5.5",
+    "typescript": "^4.9.5",
+    "vitest": "^0.29.2",
+    "zakhaarif-dev-tools": "^0.1.1"
+  }
+}

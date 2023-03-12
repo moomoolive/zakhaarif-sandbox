@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox</title>
+    <meta
+        http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'unsafe-inline'; child-src 'none'; worker-src 'self';"
+    />
+</head>
+<body>
+    <script type="module" defer>var s="mirror-sw.compiled.js";async function t(){let a=await caches.keys(),o=[];if("databases"in indexedDB){let i=(await(async()=>{try{return await indexedDB.databases()}catch{return[]}})()).map(r=>r.name||"");o.push(...i.filter(r=>r.length>0))}return await Promise.all([...a.map(e=>caches.delete(e)),...o.map(e=>indexedDB.deleteDatabase(e)),navigator.serviceWorker.ready,Promise.resolve(localStorage.clear())]),!0}var n=async()=>{if(window.top===window.self&&console.warn("sandbox is not loaded in iframe! Place this in a sandboxed iframe for better security!"),!navigator.serviceWorker)throw new Error("current browser doesn't support service workers");console.info("[SANDBOX]: registering service worker..."),(await navigator.serviceWorker.register(s)).active||console.warn("service worker controller not found"),await t(),window.setTimeout(()=>{console.info("[SANDBOX]: service worker registered successfully"),top?.postMessage("finished","*")},2e3)};n();
+</script>
+</body>
+</html>
