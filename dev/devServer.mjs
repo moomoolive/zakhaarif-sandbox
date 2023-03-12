@@ -1,5 +1,6 @@
 import express from "express"
 import cors from "cors"
+import fallback from "express-history-api-fallback"
 
 const app = express()
 const port = 6777
@@ -24,9 +25,10 @@ app.use((_, res, next) => {
     next()
 })
 app.use(express.static("src/src"))
+app.use(fallback("index.html", {root: "src/src"}))
 
 app.get("/ping", (_, res) => res.json("hey there"))
 
 app.listen(port, () => {
-    console.info(`sandbox dev-server is listening on http://localhost:${port}`, "[ port=", port, "]")
+    console.info(`sandbox dev-server is listening on http://localhost:${port}`)
 })

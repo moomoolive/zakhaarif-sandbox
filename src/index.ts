@@ -1,4 +1,4 @@
-import {SERVICE_WORKER_FILE} from "./config"
+import {RUN_PROGRAM_PATHNAME, SERVICE_WORKER_FILE} from "./config"
 import {deleteStorage} from "./deleteStorage"
 
 const main = async () => {
@@ -13,10 +13,15 @@ const main = async () => {
     if (!registration.active) {
         console.warn(`service worker controller not found`)
     }
-    await deleteStorage()
     window.setTimeout(() => {
         console.info("[SANDBOX]: service worker registered successfully") 
-        top?.postMessage("finished", "*") 
+        if (window.location.pathname === RUN_PROGRAM_PATHNAME) {
+            console.warn("application attempted to run program without registering service worker")
+            window.location.reload()
+        } else {
+            top?.postMessage("finished", "*")
+        }
     }, 2_000)
+    await deleteStorage()
 }
 main()

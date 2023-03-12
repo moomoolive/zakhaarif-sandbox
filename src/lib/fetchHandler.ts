@@ -3,6 +3,7 @@ import {fetchCore} from "./fetchCore"
 import IndexHtml from "../serviceWorker/index-html.inlined.json"
 import SecureMjs from "../serviceWorker/secure-compiled-mjs.inlined.json"
 import {INDEX_HTML_LENGTH, SECURE_MJS_LENGTH} from "../serviceWorker/inlinedMeta"
+import { RUN_PROGRAM_PATHNAME } from "../config"
 
 const generateTemplate = ({
     importSource, 
@@ -59,7 +60,7 @@ export const createFetchHandler = (options: FetchHandlerOptions) => {
         config,
     } = options
     const rootDoc = `${origin}/`
-    const templateEndpoint = `${origin}/runProgram`
+    const templateEndpoint = `${origin}${RUN_PROGRAM_PATHNAME}`
     const entryScript = `${origin}/secure.compiled.js`
     const testScript = `${origin}/test.mjs`
     const clientCache = {getFile: fileCache.getClientFile} as const
